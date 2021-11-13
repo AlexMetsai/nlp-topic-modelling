@@ -60,4 +60,11 @@ if __name__ == '__main__':
     mean_df.plot.barh(x='company', y='stars')
     plt.show()
 
+    # For each company plot together Average Stars and Number of Reviews.
+    # We plot the two axes with different scaling.
+    review_mean_and_count = reviews['company'].value_counts(sort=True).rename_axis('company').reset_index(name='counts')
+    review_mean_and_count = pd.merge(review_mean_and_count, mean_df)
+    review_mean_and_count.set_index('company').plot(kind='bar', secondary_y='stars', rot=90)
+    plt.show()
+
     pass
