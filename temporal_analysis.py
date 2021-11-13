@@ -26,13 +26,12 @@ def average_rating_per_year(df):
     return df
 
 
-
 def average_rating_per_month(df):
     """
     Plots the average rating of each month, for all the years.
     """
 
-    df['month'] = df['date'].apply(lambda x: f"{x.year}  {x.month}")
+    df['month'] = df['date'].apply(lambda x: x.month)
 
     grouped_df = df.groupby('month')
     mean_df = grouped_df['stars'].mean()
