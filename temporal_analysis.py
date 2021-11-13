@@ -26,10 +26,44 @@ def average_rating_per_year(df):
     return df
 
 
+
+def average_rating_per_month(df):
+    """
+    Plots the average rating of each month, for all the years.
+    """
+
+    df['month'] = df['date'].apply(lambda x: f"{x.year}  {x.month}")
+
+    grouped_df = df.groupby('month')
+    mean_df = grouped_df['stars'].mean()
+    ax = mean_df.plot.barh(x='month', y='stars')
+    ax.set_xlabel("Average Rating")
+    plt.show()
+
+    return df
+
+
+def average_rating_monthly(df):
+    """
+    Plots the average rating as time passes, in a monthly rate (2016-12, 2017-01, etc.)
+    """
+
+    df['month'] = df['date'].apply(lambda x: f"{x.year}  {x.month}")
+
+    grouped_df = df.groupby('month')
+    mean_df = grouped_df['stars'].mean()
+    ax = mean_df.plot.barh(x='month', y='stars')
+    ax.set_xlabel("Average Rating")
+    plt.show()
+
+    return df
+
+
 if __name__ == '__main__':
 
     reviews = load_and_preprocess_reviews()
     print(f"Earliest date:{reviews.date.min()}\nLatest date{reviews.date.max()}")
 
-    avg = average_rating_per_year(reviews)
+    avg_year = average_rating_per_year(reviews)
+    avg_month = average_rating_per_month(reviews)
 
