@@ -2,7 +2,7 @@
 Alexandros Metsai
 alexmetsai@gmail.com
 
-Various utilities used for our analysis.
+Analyze ratings over time.
 """
 
 import matplotlib.pyplot as plt

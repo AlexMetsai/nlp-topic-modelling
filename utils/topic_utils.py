@@ -2,7 +2,7 @@
 Alexandros Metsai
 alexmetsai@gmail.com
 
-Utils
+Utils for topic modelling.
 """
 
 from nltk.corpus import stopwords

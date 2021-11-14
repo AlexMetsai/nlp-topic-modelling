@@ -2,7 +2,7 @@
 Alexandros Metsai
 alexmetsai@gmail.com
 
-Initial analysis of the Trustpilot dataset.
+Initial analysis of the Trustpilot dataset. Find the average stars and the number of reviews.
 """
 
 
