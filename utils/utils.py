@@ -42,6 +42,9 @@ def load_and_preprocess_reviews(path='train_reviews.json'):
     # Find which company each review concerns, based on the url that it got submitted to.
     df = match_url_to_company(df)
 
+    # Skip year 2011 (contains only 2 reviews)
+    df = df[df.date.dt.year != 2011]
+
     return df
 
 
