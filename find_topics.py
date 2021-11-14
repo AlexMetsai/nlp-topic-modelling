@@ -3,8 +3,6 @@ Alexandros Metsai
 alexmetsai@gmail.com
 
 Find topics discussed in the the Trustpilot dataset, using NLTK and gensim.
-Got useful insight from this article:
-    https://thecodinginterface.com/blog/nlp-topic-modeling/
 """
 
 import matplotlib.pyplot as plt
@@ -78,7 +76,6 @@ if __name__ == '__main__':
         for month in range(1, 13):
             reviews_m = reviews[reviews['date'].dt.year == year]
             reviews_m = reviews_m[reviews_m['date'].dt.month == month]
-            #reviews_text_m = [''.join(x) for x in reviews_m['text']]
             reviews_text_m = reviews_m['text'].values
             if reviews_text_m.size == 0:
                 # no data, continue
