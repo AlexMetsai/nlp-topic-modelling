@@ -45,6 +45,9 @@ def load_and_preprocess_reviews(path='train_reviews.json'):
     # Skip year 2011 (contains only 2 reviews)
     df = df[df.date.dt.year != 2011]
 
+    # Drop duplicates.
+    df.drop_duplicates(inplace=True)
+
     return df
 
 
