@@ -20,7 +20,8 @@ def find_topics(texts, n_topics=8):
     # Tokenize the text
     docs = []
     for txt in texts:
-        texts_tokens = tokenize_review(txt, extra_stops=['wa', 'train'])  # for some reason, 'was'->'wa'. Omit for now
+        # for some reason, 'was'->'wa', omit for now.
+        texts_tokens = tokenize_review(txt, extra_stops=['wa', 'train'])
         docs.append(texts_tokens)
 
     # Create a dictionary and use the bag-of-words format.
@@ -55,20 +56,33 @@ if __name__ == '__main__':
 
     # Extract topics for all dates
     reviews = load_and_preprocess_reviews()
-    reviews_text = [''.join(x) for x in reviews['text']]
+    reviews_text = reviews['text'].values
     find_topics(reviews_text)
 
+    # Find topics over time, every 6 months.
+    half_year = [[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12]]
+    for year in [2015, 2016, 2017, 2018]:
+        for months in half_year:
+            reviews_m = reviews[reviews['date'].dt.year == year]
+            reviews_m = reviews_m[reviews_m['date'].dt.month.isin(months)]
+            reviews_text_m = reviews_m['text'].values
+            if reviews_text_m.size == 0:
+                # no data, continue
+                print(f"No data found for {year}-{months}")
+                continue
+            print(f"Topics for {year} and mothns: {months}")
+            find_topics(reviews_text_m)
+
     # Find topics over time, in a monthly manner.
-    for year in [2018]:
+    for year in [2015, 2016, 2017, 2018]:
         for month in range(1, 13):
             reviews_m = reviews[reviews['date'].dt.year == year]
             reviews_m = reviews_m[reviews_m['date'].dt.month == month]
-            reviews_text_m = [''.join(x) for x in reviews_m['text']]
-            if not reviews_text_m:
+            #reviews_text_m = [''.join(x) for x in reviews_m['text']]
+            reviews_text_m = reviews_m['text'].values
+            if reviews_text_m.size == 0:
                 # no data, continue
                 print(f"No data found for {year}-{month}")
                 continue
             print(f"Topics for {year}-{month}")
             find_topics(reviews_text_m)
-
-    pass
